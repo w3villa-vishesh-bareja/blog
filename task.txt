@@ -1,0 +1,8 @@
+user -> Has_many blogs 
+
+blog: title, description, image, categories , user_id
+blog has_many: comments
+blog has_many: likes
+
+role based 
+
