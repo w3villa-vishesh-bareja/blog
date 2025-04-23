@@ -1,9 +1,7 @@
 import { DataTypes } from 'sequelize';
-import {sequelize} from '../config/db.js'; 
-import Blog from './Blog.model.js';  
-import User from './User.model.js';  
+import {sequelize} from '../config/db.js';
 
-const BlogLike = sequelize.define('BlogLike', {
+const BlogLike = sequelize.define('BlogLikes', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -30,8 +28,9 @@ const BlogLike = sequelize.define('BlogLike', {
   },
 });
 
-// Relationships
-BlogLike.belongsTo(Blog, { foreignKey: 'blog_id' });
-BlogLike.belongsTo(User, { foreignKey: 'user_id' });
+BlogLike.associate = (models) => {
+  BlogLike.belongsTo(models.Blog, { foreignKey: 'blog_id' });
+  BlogLike.belongsTo(models.User, { foreignKey: 'user_id' });
+};
 
 export default BlogLike;

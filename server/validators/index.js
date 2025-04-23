@@ -1,3 +1,3 @@
 import {registerValidator} from './user.validator.js'
-
-export {registerValidator}
+import {blogValidator , updateBlogValidator , likeBlogValidator} from './blog.validator.js'
+export {registerValidator , blogValidator, updateBlogValidator , likeBlogValidator}

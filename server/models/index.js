@@ -16,9 +16,15 @@ const db = {
     BlogLike
 }
 
+Object.values(db).forEach((model) => {
+    if (model.associate) {
+        model.associate(db);
+    }
+});
+
 db.syncDB = async () => {
     try {
-      await db.sequelize.sync({ force: false });  // Set force to false in production
+      await db.sequelize.sync({ force: false  });  // Set force to false in production
       console.log('Database synced successfully');
     } catch (error) {
       console.error('Error syncing database:', error);

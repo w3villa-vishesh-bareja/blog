@@ -26,14 +26,6 @@ const Comment = sequelize.define('Comment', {
     type: DataTypes.INTEGER,
     allowNull: true,
   },
-  created_at: {
-    type: DataTypes.DATE,
-    defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-  },
-  updated_at: {
-    type: DataTypes.DATE,
-    defaultValue: sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
-  },
   is_active: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
@@ -46,12 +38,28 @@ const Comment = sequelize.define('Comment', {
     defaultValue: 0,
   },
 }, {
-  timestamps: false,
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at',
 });
 
 // Relationships
-Comment.belongsTo(User, { foreignKey: 'user_id' });
-Comment.belongsTo(Blog, { foreignKey: 'blog_id' });
-Comment.belongsTo(Comment, { foreignKey: 'reply_of', as: 'parentComment' });
-
+Comment.associate = (models) => {
+  Comment.belongsTo(models.User, { 
+      foreignKey: 'user_id',
+      as: 'commentUser'  // Added unique alias
+  });
+  Comment.belongsTo(models.Blog, { 
+      foreignKey: 'blog_id',
+      as: 'commentBlog'  // Added unique alias
+  });
+  Comment.belongsTo(models.Comment, { 
+      foreignKey: 'reply_of', 
+      as: 'parentComment'
+  });
+  Comment.hasMany(models.Comment, { 
+      foreignKey: 'reply_of', 
+      as: 'replies'
+  });
+};
 export default Comment;
