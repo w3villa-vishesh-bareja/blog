@@ -1,5 +1,5 @@
-import {sequelize} from '../config/db.js'; // Adjust the path as necessary
-import User from './User.model.js'; // Adjust the path as necessary
+import {sequelize} from '../config/db.js'; 
+import User from './User.model.js'; 
 import Blog from './Blog.model.js';
 import Hashtag from './Hashtag.model.js';
 import BlogHashtag from './BlogHashtag.model.js';
@@ -24,7 +24,7 @@ Object.values(db).forEach((model) => {
 
 db.syncDB = async () => {
     try {
-      await db.sequelize.sync({ force: false  });  // Set force to false in production
+      await db.sequelize.sync({ force: false });  
       console.log('Database synced successfully');
     } catch (error) {
       console.error('Error syncing database:', error);

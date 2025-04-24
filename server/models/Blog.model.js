@@ -46,15 +46,15 @@ const Blog = sequelize.define('Blog', {
 Blog.associate = (models) => {
   Blog.belongsTo(models.User, { 
       foreignKey: 'user_id',
-      as: 'blogAuthor'  
+     
   });
   Blog.hasMany(models.Comment, { 
       foreignKey: 'blog_id',
-      as: 'blogComments' 
+      
   });
   Blog.hasMany(models.BlogLike, { 
       foreignKey: 'blog_id',
-      as: 'blogLikes'  
+      
   });
 };
 

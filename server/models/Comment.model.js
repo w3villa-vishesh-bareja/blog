@@ -1,7 +1,6 @@
 import { DataTypes } from 'sequelize';
 import {sequelize} from '../config/db.js'; 
-import User from './User.model.js';  // Import User model to define relationship
-import Blog from './Blog.model.js';  // Import Blog model to define relationship
+
 
 const Comment = sequelize.define('Comment', {
   id: {
@@ -17,10 +16,20 @@ const Comment = sequelize.define('Comment', {
   blog_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: 'Blogs', 
+      key: 'id',
+    },
+    onDelete: 'CASCADE',
   },
   user_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: 'Users', 
+      key: 'id',
+    },
+    onDelete: 'CASCADE',
   },
   reply_of: {
     type: DataTypes.INTEGER,
@@ -47,19 +56,15 @@ const Comment = sequelize.define('Comment', {
 Comment.associate = (models) => {
   Comment.belongsTo(models.User, { 
       foreignKey: 'user_id',
-      as: 'commentUser'  // Added unique alias
   });
   Comment.belongsTo(models.Blog, { 
       foreignKey: 'blog_id',
-      as: 'commentBlog'  // Added unique alias
   });
   Comment.belongsTo(models.Comment, { 
       foreignKey: 'reply_of', 
-      as: 'parentComment'
   });
   Comment.hasMany(models.Comment, { 
       foreignKey: 'reply_of', 
-      as: 'replies'
   });
 };
 export default Comment;

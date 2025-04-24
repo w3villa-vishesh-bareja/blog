@@ -10,10 +10,20 @@ const BlogLike = sequelize.define('BlogLikes', {
   blog_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    references:{
+      model: 'Blogs', 
+      key: 'id',
+    },
+    onDelete: 'CASCADE',
   },
   user_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    references:{
+      model: 'Users', 
+      key: 'id',
+    },
+    onDelete: 'CASCADE', 
   },
   created_at: {
     type: DataTypes.DATE,

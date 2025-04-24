@@ -32,9 +32,9 @@ const User = sequelize.define('User', {
     defaultValue: 0,
   },
 }, {
-  timestamps: true, // Enable automatic handling of createdAt and updatedAt
-  createdAt: 'created_at', // Map Sequelize's createdAt to your column name
-  updatedAt: 'updated_at', // Map Sequelize's updatedAt to your column name
+  timestamps: true, 
+  createdAt: 'created_at', 
+  updatedAt: 'updated_at', 
   hooks: {
     beforeCreate: (user) => {
       user.unique_id = user.unique_id || sequelize.fn('UUID');
@@ -44,15 +44,15 @@ const User = sequelize.define('User', {
 User.associate = (models) => {
   User.hasMany(models.Blog, { 
       foreignKey: 'user_id',
-      as: 'authoredBlogs'  
+      
   });
   User.hasMany(models.Comment, { 
       foreignKey: 'user_id',
-      as: 'userComments'  
+       
   });
   User.hasMany(models.BlogLike, { 
       foreignKey: 'user_id',
-      as: 'userLikes'  
+    
   });
 };
 

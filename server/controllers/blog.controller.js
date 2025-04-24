@@ -109,15 +109,15 @@ export async function deleteBlog(req, res) {
                 });
             }
 
-            await db.BlogLikes.destroy({
-                where: { blog_id: blog.id },
-                transaction: t
-            });
+            // await db.BlogLike.destroy({
+            //     where: { blog_id: blog.id },
+            //     transaction: t
+            // });
 
-            await db.Comment.destroy({
-                where: { blog_id: blog.id },
-                transaction: t
-            });
+            // await db.Comment.destroy({
+            //     where: { blog_id: blog.id },
+            //     transaction: t
+            // });
 
             await blog.destroy({ transaction: t });
 
